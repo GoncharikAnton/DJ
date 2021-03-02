@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ru-en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <h3>{% for category in categories %}
+        <p><a href="{% url 'category' category.slug%}">{{category.name}} -- {{category.slug}}</a></p>
+        {% endfor %} </h3>
+</body>
+</html>
