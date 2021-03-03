@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Объявление</title>
+</head>
+<body>
+
+    <h3>{% for category in categories %}
+        <p><a href="{% url 'category' category.slug %}">{{category.name}}</a></p>
+        {% endfor %}
+    </h3>
+    <h1>
+        <p>{{post.title}}</p>
+    </h1>
+    <h4>
+        <p>{{post.mini_text}}</p>
+    </h4>
+    <h2>
+        <p>{{post.text}}</p>
+    </h2>
+    <h5>
+        <p>{{post.created_date}}</p>
+    </h5>
+
+</body>
+</html>

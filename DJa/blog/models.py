@@ -5,7 +5,8 @@ class Category(models.Model):
     """Модель категорий постов"""
 
     name = models.CharField('Категории', max_length=100)
-    slug = models.SlugField('url', max_length=100)
+    slug = models.SlugField('url', max_length=100, unique=True)
+
 
     def __str__(self):
         return f'{self.name}'
@@ -19,7 +20,7 @@ class Tag(models.Model):
     """Tag's model"""
 
     name = models.CharField('Тэг', max_length=60)
-    slug = models.SlugField('url', max_length=60)
+    slug = models.SlugField('url', max_length=60, unique=True)
 
     def __str__(self):
         return self.name
@@ -36,10 +37,10 @@ class Post(models.Model):
     mini_text = models.TextField('Краткое описание', max_length=400)
     text = models.TextField('Описание', max_length=2000)
     created_date = models.DateTimeField('Дата создания', auto_now=True)
-    slug = models.SlugField('url', max_length=250)
+    slug = models.SlugField('url', max_length=250, unique=True)
 
     def __str__(self):
-        return self.title
+        return f'{self.title} {self.mini_text} {self.text} {self.created_date}'
 
     class Meta:
         verbose_name = 'Объявление'
@@ -52,6 +53,10 @@ class Comment(models.Model):
     text = models.TextField('Описание', max_length=750)
     created_date = models.DateTimeField('Дата создания', auto_now=True)
     moderation = models.BooleanField('Модерация пройдена', blank=False)
+
+    def __str__(self):
+        return f'{self.text} {self.created_date}'
+
 
     class Meta:
         verbose_name = 'Комментарий'

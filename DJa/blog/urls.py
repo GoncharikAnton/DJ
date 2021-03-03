@@ -4,7 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    path('<slug:category_name>/', views.CategoryView.as_view(), name='category'),
-    # path('<slug:post_title>/', views.PostView.as_view(), name='post'),
+    path('post/<slug:post_title>/', views.PostView.as_view(), name='post'),
+    path('category/<slug:category_name>/', views.CategoryView.as_view(), name='category'),
     path('', views.HomeView.as_view()),
 ]

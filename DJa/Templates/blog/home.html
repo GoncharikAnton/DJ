@@ -5,11 +5,13 @@
     <title>Home</title>
 </head>
 <body>
+
     <h3>{% for category in categories %}
-        <p><a href="{{ category.slug }}">{{category.name}} -- {{category.slug}}</a></p>
+        <p><a href="{% url 'category' category.slug %}">{{category.name}}</a></p>
         {% endfor %} </h3>
+    <h1>Объявления</h1>
     <h2>{% for post in post_list %}
-        <p><a href="{{ post.slug }}">{{post.title}} -- {{post.slug}}</a></p>
+        <p><a href="{% url 'post' post.slug %}">{{post.title}}</a></p>
         {% endfor %} </h2>
 </body>
 </html>
