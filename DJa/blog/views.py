@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
@@ -9,9 +10,9 @@ class HomeView(View):
 
     def get(self, request):
         category_list = Category.objects.all()
-        post_list = Post.objects.all()
+        post_list = Post.objects.filter(published_date__lte=datetime.now(), published=True)
         page_context = {'categories': category_list, 'post_list': post_list}
-        return render(request, 'blog/home.html', context=page_context)
+        return render(request, 'blog/post_list.html', context=page_context)
 
 
 class CategoryView(View):
@@ -25,8 +26,8 @@ class CategoryView(View):
 class PostView(View):
     """Post page"""
 
-    def get(self, request, post_title):
+    def get(self, request, category, post_slug):
         category_list = Category.objects.all()
-        post = Post.objects.get(slug=post_title)
+        post = Post.objects.get(slug=post_slug)
         page_context = {'categories': category_list, 'post': post}
         return render(request, 'blog/post_detail.html', context=page_context)
