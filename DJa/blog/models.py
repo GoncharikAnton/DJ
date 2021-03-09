@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
@@ -67,7 +68,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
-    tags = models.ManyToManyField(Tag, verbose_name='Тег', blank=True)
+    tags = models.ManyToManyField(Tag, verbose_name='Тег', blank=True, related_name='tag')
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
     edit_date = models.DateTimeField(
         'Дата изменения',
@@ -88,8 +89,14 @@ class Post(models.Model):
     status = models.BooleanField('Для зарегестриованных', default=False)
     sort = models.PositiveIntegerField('Порядок', default=0)
 
+    def get_tags(self):
+        return self.tags.all()
+
     def get_absolute_url(self):
         return reverse('detail_post', kwargs={'category': self.category.slug, 'post': self.slug})
+
+    def get_comments_count(self):
+        return self.comments.count()
 
     def __str__(self):
         return f'{self.title} {self.mini_text} {self.text} {self.created_date}'
@@ -107,7 +114,12 @@ class Comment(models.Model):
         verbose_name='Автор',
         on_delete=models.CASCADE,
     )
-    post = models.ForeignKey(Post, verbose_name='Статья', on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post,
+        verbose_name='Статья',
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
     text = models.TextField('Описание', max_length=750)
     created_date = models.DateTimeField('Дата создания', auto_now=True)
     moderation = models.BooleanField('Модерация пройдена', blank=False)

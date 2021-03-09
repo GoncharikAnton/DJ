@@ -15,7 +15,9 @@
 {% for post in post_list %}
     <h2><a href="{% url 'detail_post' post.category.slug post.slug %}">{{post.title}}</a></h2>
     {{ post.mini_text }}
-    <p>{{ post.published_date }}</p>
+    <small><p>{{ post.published_date }}</p></small>
+    <small><p>Просмотров - {{ post.viewed }}</p></small>
+    <small><p>Комментариев - {{ post.get_comments_count }}</p></small>
 {% endfor %}
 </body>
 </html>
