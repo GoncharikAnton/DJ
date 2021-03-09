@@ -15,14 +15,6 @@ class HomeView(View):
         return render(request, 'blog/post_list.html', context=page_context)
 
 
-class CategoryView(View):
-    """Category page"""
-
-    def get(self, request, category_name):
-        category = Category.objects.get(slug=category_name)
-        return render(request, 'blog/post_list.html', {'category': category})
-
-
 class PostView(View):
     """Post page"""
 
@@ -30,4 +22,13 @@ class PostView(View):
         category_list = Category.objects.all()
         post = Post.objects.get(slug=post_slug)
         page_context = {'categories': category_list, 'post': post}
-        return render(request, 'blog/post_detail.html', context=page_context)
+        return render(request, post.template, context=page_context)
+
+
+class CategoryView(View):
+    """Category page"""
+
+    def get(self, request, category_name):
+        category = Category.objects.get(slug=category_name)
+        return render(request, 'blog/post_list.html', {'category': category})
+

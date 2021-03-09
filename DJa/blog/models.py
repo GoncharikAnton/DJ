@@ -83,7 +83,7 @@ class Post(models.Model):
         null=True
     )
     image = models.ImageField('Главная фотография', upload_to='post/', blank=True, null=True)
-    template = models.CharField('Шаблон', max_length=500, default='news/post_detail.html')
+    template = models.CharField('Шаблон', max_length=500, default='blog/post_detail.html')
     published = models.BooleanField('Отображать?', default=True)
     viewed = models.IntegerField('Просмотрено', default=0)
     status = models.BooleanField('Для зарегестриованных', default=False)
