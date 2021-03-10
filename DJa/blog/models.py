@@ -20,7 +20,7 @@ class Category(MPTTModel):
         blank=True,
         related_name='children'
     )
-    template = models.CharField('Шаблон', max_length=500, default='blog/post_list.html')
+    template = models.CharField('Шаблон', max_length=500, default='blog/sport_list.html')
     published = models.BooleanField('Отображать?', default=True)
     paginated = models.PositiveIntegerField('Кол-во новостей на страние', default=5)
     sort = models.PositiveIntegerField('Порядок', default=0)
@@ -67,6 +67,7 @@ class Post(models.Model):
         verbose_name='Категория',
         on_delete=models.CASCADE,
         null=True,
+        related_name='category'
     )
     tags = models.ManyToManyField(Tag, verbose_name='Тег', blank=True, related_name='tag')
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
@@ -97,6 +98,9 @@ class Post(models.Model):
 
     def get_comments_count(self):
         return self.comments.count()
+
+    def get_category_template(self):
+        return self.category.template
 
     def __str__(self):
         return f'{self.title} {self.mini_text} {self.text} {self.created_date}'
