@@ -18,14 +18,14 @@
 <p> {{ post.text }}</p>
 <p>Категория - {{ post.category}}</p>
 Теги - {% for tag in  post.get_tags %}
-{{ tag.name }},
+<a href="{% url 'tag' tag.slug %}">{{ tag.name }}</a>,
 {% endfor %}
 <small><p>{{ post.author }} -- {{ post.published_date }}</p></small>
 <hr>
 
 <h4>Комментарии</h4>
 
-{% for comment in post.comment_set.all %}
+{% for comment in post.comments.all %}
 Пользователь {{ comment.author }}
 <p>{{ comment.text }}</p> <br>
 <p>Добавлен - {{ comment.created_date }}</p>

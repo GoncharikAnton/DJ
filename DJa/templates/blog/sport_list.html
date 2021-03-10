@@ -5,12 +5,12 @@
     <title>Home</title>
 </head>
 <body>
-<h1>Спорт</h1>
+
 {% for category in categories %}
     <p><a href="{% url 'category' category.slug %}">{{category.name}}</a></p>
 {% endfor %}
 <hr>
-<h1>Новости</h1>
+<h1>{{ category.name }}</h1>
 <hr>
 {% for post in post_list %}
     <h2><a href="{% url 'detail_post' post.category.slug post.slug %}">{{post.title}}</a></h2>
@@ -18,6 +18,10 @@
     <small><p>{{ post.published_date }}</p></small>
     <small><p>Просмотров - {{ post.viewed }}</p></small>
     <small><p>Комментариев - {{ post.get_comments_count }}</p></small>
+    Теги - {% for tag in post.get_tags %}
+                {{ tag.name }},
+            {%endfor%}
+
 {% endfor %}
 </body>
 </html>
