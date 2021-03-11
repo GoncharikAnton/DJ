@@ -18,7 +18,7 @@
 <p> {{ post.text }}</p>
 <p>Категория - {{ post.category}}</p>
 Теги - {% for tag in  post.get_tags %}
-{{ tag.name }},
+<a href="{% url 'tag' tag.slug %}">{{ tag.name }}</a>,
 {% endfor %}
 <small><p>{{ post.author }} -- {{ post.published_date }}</p></small>
 <hr>
