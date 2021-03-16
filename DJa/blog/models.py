@@ -41,6 +41,7 @@ class Tag(models.Model):
 
     name = models.CharField('Тег', max_length=60)
     slug = models.SlugField('url', max_length=60, unique=True)
+    published = models.BooleanField('Отображать?', default=True)
 
     def __str__(self):
         return self.name
@@ -129,7 +130,7 @@ class Comment(models.Model):
     )
     text = models.TextField('Описание', max_length=750)
     created_date = models.DateTimeField('Дата создания', auto_now=True)
-    moderation = models.BooleanField('Модерация пройдена', blank=False)
+    moderation = models.BooleanField('Модерация пройдена', default=True)
 
 
     def __str__(self):

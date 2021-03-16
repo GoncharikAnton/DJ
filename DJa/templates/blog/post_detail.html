@@ -18,13 +18,26 @@
 <p> {{ post.text }}</p>
 <p>Категория - {{ post.category}}</p>
 Теги - {% for tag in  post.get_tags %}
-<a href="{% url 'tag' tag.slug %}">{{ tag.name }}</a>,
-{% endfor %}
+            {% if tag.published  %}
+            <a href="{% url 'tag' tag.slug %}">{{ tag.name }}</a>,
+            {% endif %}
+            {% endfor %}
 <small><p>{{ post.author }} -- {{ post.published_date }}</p></small>
 <hr>
 
 <h4>Комментарии</h4>
+{% if user.is_authenticated %}
+    <form action="/comment/" method="post">
+        {% csrf_token %}
+        <textarea name="text" cols="30" rows="10"></textarea><br>
+        <input type="hidden" name="post" value="{{ post.id }}">
+        <button type="submit">Отправить</button>
+    </form>
+{% else %}
+    <p>Что бы оставить комментарий, авторизируйтесь.</p>
+{% endif %}
 
+<hr>
 {% for comment in post.comments.all %}
 Пользователь {{ comment.author }}
 <p>{{ comment.text }}</p> <br>
