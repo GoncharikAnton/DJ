@@ -33,18 +33,18 @@ class PostView(View):
     def get(self, request, **kwargs):
         category_list = Category.objects.filter(published=True)
         post = get_object_or_404(Post, slug=kwargs.get('post_slug'))
-        page_context = {'categories': category_list, 'post': post}
+        form = CommentForm()
+        page_context = {'categories': category_list, 'post': post, 'form': form}
         return render(request, post.template, context=page_context)
 
 
 class CreateCommentView(View):
 
-    def post(self, request):
-        print(request.POST)
-        # Comment.objects.create(author=request.user, post_id=request.POST.get('post'), text=request.POST.get('text'))
-        comment = Comment()
-        comment.author = request.user
-        comment.post_id = request.POST.get('post')
-        comment.text = request.POST.get('text')
-        comment.save()
+    def post(self, request, pk):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.post_id = pk
+            form.author = request.user
+            form.save()
         return HttpResponse(status=201)
