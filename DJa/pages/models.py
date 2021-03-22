@@ -8,8 +8,8 @@ class Page(models.Model):
 
     title = models.CharField('Название', max_length=800)
     text = models.CharField('Содержание', max_length=8000)
-    active = models.BooleanField('Вкл\Выкл', default=True)
-    template = models.CharField('Шаблон', default='page/index.html')
+    active = models.BooleanField('Активно Вкл\Выкл', default=True)
+    template = models.CharField('Шаблон', default='page/index.html', max_length=500)
     slug = models.SlugField('url', max_length=250, unique=True)
 
     def __str__(self):
