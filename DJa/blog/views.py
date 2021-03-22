@@ -44,6 +44,7 @@ class CreateCommentView(View):
         form = CommentForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
+
             form.post_id = pk
             form.author = request.user
             form.save()
