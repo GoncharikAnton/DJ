@@ -44,7 +44,7 @@ class PostView(View):
             form.post = Post.objects.get(slug=kwargs.get('post_slug'))
             form.author = request.user
             form.save()
-        return redirect(f'/{kwargs.get("category")}/{kwargs.get("post_slug")}/')
+        return redirect(request.path)
 
 # class CreateCommentView(View):
 #
