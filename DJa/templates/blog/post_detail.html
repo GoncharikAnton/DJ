@@ -27,7 +27,7 @@
 
 <h4>Комментарии</h4>
 {% if user.is_authenticated %}
-    <form action="/comment/{{ post.id }}/" method="post">
+    <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Отправить</button>

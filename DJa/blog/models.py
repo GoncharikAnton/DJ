@@ -132,7 +132,6 @@ class Comment(models.Model):
     created_date = models.DateTimeField('Дата создания', auto_now=True)
     moderation = models.BooleanField('Модерация пройдена', default=True)
 
-
     def __str__(self):
         return f'{self.text} {self.created_date}'
 

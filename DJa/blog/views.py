@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import *
 from .forms import CommentForm
@@ -37,14 +37,22 @@ class PostView(View):
         page_context = {'categories': category_list, 'post': post, 'form': form}
         return render(request, post.template, context=page_context)
 
-
-class CreateCommentView(View):
-
-    def post(self, request, pk):
+    def post(self, request, **kwargs):
         form = CommentForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            form.post_id = pk
+            form.post = Post.objects.get(slug=kwargs.get('post_slug'))
             form.author = request.user
             form.save()
-        return HttpResponse(status=201)
+        return redirect(f'/{kwargs.get("category")}/{kwargs.get("post_slug")}/')
+
+# class CreateCommentView(View):
+#
+#     def post(self, request, pk):
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             form = form.save(commit=False)
+#             form.post_id = pk
+#             form.author = request.user
+#             form.save()
+#         return HttpResponse(status=201)
