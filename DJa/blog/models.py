@@ -91,7 +91,7 @@ class Post(models.Model):
     template = models.CharField('Шаблон', max_length=500, default='blog/post_detail.html')
     published = models.BooleanField('Отображать?', default=True)
     viewed = models.IntegerField('Просмотрено', default=0)
-    status = models.BooleanField('Для зарегестриованных', default=False)
+    status = models.BooleanField('Для зарегестрированных', default=False)
     sort = models.PositiveIntegerField('Порядок', default=0)
 
     def get_tags(self):
