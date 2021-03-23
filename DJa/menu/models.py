@@ -43,7 +43,7 @@ class MenuPoint(MPTTModel):
     status = models.BooleanField('Вкл/выкл', default=True)
     is_auth = models.BooleanField('Для зарегистрированных', default=False)
     anchor = models.CharField('Якорь', max_length=300)
-    url = models.URLField(max_length=500)
+    url = models.URLField('Ссылка на внешний ресурс', max_length=500)
     active = models.BooleanField('Активно вкл/выкл', default=True)
 
     def __str__(self):
