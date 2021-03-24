@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
+{% load blog_tags %}
+
+
 <html lang="ru-en">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
-
-{% for category in categories %}
-    <p><a href="{% url 'category' category.slug %}">{{category.name}}</a></p>
-{% endfor %}
+{% category_list count=4 %}
 <hr>
 <h1><a href="/">Новости</a></h1>
 <hr>
