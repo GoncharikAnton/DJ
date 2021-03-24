@@ -13,7 +13,7 @@ class PostListView(View):
         return Post.objects.filter(published_date__lte=datetime.now(), published=True)
 
     def get(self, request, category_slug=None, tag_slug=None):
-        category_list = Category.objects.filter(published=True)
+        # category_list = Category.objects.filter(published=True)
         if category_slug is not None:
             post_list = self.get_qeryset().filter(category__slug=category_slug, category__published=True)
         elif tag_slug is not None:
@@ -24,7 +24,7 @@ class PostListView(View):
             template = post_list.first().get_category_template()
         else:
             template = 'blog/post_list.html'
-        return render(request, template, {'categories': category_list, 'post_list': post_list})
+        return render(request, template, {'post_list': post_list})
 
 
 class PostView(View):
@@ -45,14 +45,3 @@ class PostView(View):
             form.author = request.user
             form.save()
         return redirect(request.path)
-
-# class CreateCommentView(View):
-#
-#     def post(self, request, pk):
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             form = form.save(commit=False)
-#             form.post_id = pk
-#             form.author = request.user
-#             form.save()
-#         return HttpResponse(status=201)
