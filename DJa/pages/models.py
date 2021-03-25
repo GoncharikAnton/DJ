@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 
 
-class Page(models.Model):
+class Pages(models.Model):
     """Model of pages"""
 
     title = models.CharField('Название', max_length=800)

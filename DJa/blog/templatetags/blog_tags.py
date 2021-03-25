@@ -10,18 +10,18 @@ register = template.Library()
 #     category_list = Category.objects.filter(published=True, )
 #     return category_list
 
-def get_categories(context, order, count):
+def get_categories(context, count, order=None):
     """Take a list of categories"""
-    categories = Category.objects.filter(published=True).order_by(order)
+    categories = Category.objects.filter(published=True)
     if count is not None:
         categories = categories[:count]
     return categories
 
 
 @register.inclusion_tag('base/tags/base_tag.html', takes_context=True)
-def category_list(context, order='-name', count=None, template='base/tags/blog/categories.html'):
+def category_list(context, count=None, template='base/tags/blog/categories.html'):
     """template tag for category output"""
-    categories = get_categories(context, order, count)
+    categories = get_categories(context, count)
     return {'template': template, 'category_list': categories}
 
 

@@ -36,7 +36,7 @@ class Category(MPTTModel):
         verbose_name_plural = 'Категории'
 
     class MPTTMeta:
-        order_insertion_by = ('sort', )
+        order_insertion_by = ('id', )
 
 
 class Tag(models.Model):
