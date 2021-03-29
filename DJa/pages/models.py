@@ -19,7 +19,7 @@ class Pages(models.Model):
     published = models.BooleanField('Опубликовать?', default=True)
     # active = models.BooleanField('Активно Вкл\Выкл', default=True)
     template = models.CharField('Шаблон', default='page/index.html', max_length=500)
-    slug = models.SlugField('url', max_length=250, unique=True)
+    slug = models.CharField('url', max_length=250, unique=True)
     registration_required = models.BooleanField('Требуется регистрация',
                                                 default=False,
                                                 help_text='Если флажок установлен, то только'
@@ -40,7 +40,7 @@ class Pages(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return iri_to_uri(get_script_prefix().rstrip('/') + '/page' + self.slug)
+        return iri_to_uri(get_script_prefix().rstrip('/') + self.slug)
 
     class Meta:
         verbose_name = 'Страница'

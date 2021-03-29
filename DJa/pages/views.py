@@ -1,32 +1,31 @@
-from datetime import datetime
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views import View
-from .models import *
+from django.conf import settings
+from django.http import HttpResponsePermanentRedirect, Http404
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_protect
+from .models import Pages
 
 
-class PageDetailView(View):
-    """One Page view"""
+def get_page(request, url):
+    """Получение страницы по url"""
+    if not url.startswith('/'):
+        url ='/' + url
+    try:
+        page = get_object_or_404(Pages, slug=url, published=True)
+    except Http404:
+        if not url.enswith('/') and settings.APPEND_SLASH:
+            url += '/'
+            page = get_object_or_404(Pages, slug=url, published=True)
+            return HttpResponsePermanentRedirect('%s/' % request.path)
+        else:
+            raise
 
-    # def get(self, request, **kwargs):
-    #     category_list = Category.objects.filter(published=True)
-    #     post = get_object_or_404(Post, slug=kwargs.get('post_slug'))
-    #     form = CommentForm()
-    #     page_context = {'categories': category_list, 'post': post, 'form': form}
-    #     return render(request, post.template, context=page_context)
+    return render_page(request, page)
 
-    def get(self, request, page_slug=None):
-        page_list = Pages.objects.filter(slug=f'/{page_slug}/')
-        page_context = {'page_list': page_list}
-        print(request)
-        print(page_list)
-        print('page-slug', page_slug)
-        return render(request, 'page/index.html', context=page_context)
 
-class PageView(View):
-    """All pages view"""
-
-    def get(self, request, page_slug=None):
-        page_list = Pages.objects.filter(published=True)
-        page_context = {'page_list': page_list}
-        return render(request, 'page/index.html', context=page_context)
+@csrf_protect
+def render_page(request, page):
+    """Render of the page"""
+    if page.registration_required and not request.user.is_authenticated:
+        from django.contrib.auth.views import redirect_to_login
+        return redirect_to_login(request.path)
+    return render(request, page.template, {'page': page})
