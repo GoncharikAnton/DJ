@@ -13,7 +13,8 @@ class Pages(models.Model):
     edit_date = models.DateTimeField(
         'Дата редактирования',
         blank=True,
-        null=True
+        null=True,
+        auto_now=True,
     )
     published_date = models.DateTimeField('Дата публикации', blank=True, null=True)
     published = models.BooleanField('Опубликовать?', default=True)

@@ -1,7 +1,6 @@
 from django.urls import path
 
-from . import get_page
-
+from .views import get_page
 
 urlpatterns = [
     path('<path:url>', get_page, name='page'),
