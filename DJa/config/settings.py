@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'mptt',
     'menu',
     'pages',
+    'feedback',
 ]
 
 MIDDLEWARE = [
