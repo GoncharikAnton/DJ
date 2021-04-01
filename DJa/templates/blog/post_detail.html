@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-{% load blog_tags %}
+{% load blog_tags feedback_tags%}
 
 
 <html lang="ru-en">
@@ -43,6 +43,9 @@
 <p>{{ comment.text }}</p> <br>
 <p>Добавлен - {{ comment.created_date }}</p>
 {% endfor %}
+
+{#{% feedback_post %}#}
+
 
 </body>
 </html>

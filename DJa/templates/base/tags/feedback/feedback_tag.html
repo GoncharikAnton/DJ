@@ -1,0 +1,8 @@
+{% load feedback_tags %}
+
+<h4>Форма обратной связи</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>

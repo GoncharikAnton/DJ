@@ -7,9 +7,10 @@ class FeedBack(models.Model):
     user_name = models.CharField('ФИО', max_length=500, help_text='Введите свои ФИО')
     text = models.TextField('Текст сообщения', max_length=2500)
     email = models.EmailField('email', max_length=500, help_text='Введите свою электронную почту')
+    created_date = models.DateTimeField('Дата создания', auto_now=True)
 
-    # def __str__(self):
-    #     return self.email
+    def __str__(self):
+        return self.email
 
     class Meta:
         verbose_name = 'Форма обратной связи'

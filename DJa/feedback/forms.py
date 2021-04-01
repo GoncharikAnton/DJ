@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import Textarea
 
 from .models import FeedBack
 
@@ -8,4 +9,4 @@ class FeedbackForm(forms.ModelForm):
 
     class Meta:
         model = FeedBack
-        fields = ('user_name', 'email', 'text')
+        fields = ('user_name', 'email', 'text', )
