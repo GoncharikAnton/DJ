@@ -12,7 +12,7 @@ class Menu(models.Model):
     """Model of menu"""
 
     name = models.CharField('Название', max_length=300)
-    is_auth = models.BooleanField('Для зарегистрированных', default=False)
+    status = models.BooleanField('Для зарегистрированных', default=False)
     published = models.BooleanField('Отображать?', default=True)
 
     def __str__(self):
@@ -40,7 +40,7 @@ class MenuItem(MPTTModel):
         related_name='children'
     )
     menu = models.ForeignKey('Menu', verbose_name='Меню', on_delete=models.CASCADE, related_name='menu')
-    is_auth = models.BooleanField('Для зарегистрированных', default=False)
+    status = models.BooleanField('Для зарегистрированных', default=False)
     anchor = models.CharField('Якорь', max_length=300, null=True, blank=True)
     url = models.URLField('Ссылка на внешний ресурс', max_length=500, null=True, blank=True)
 

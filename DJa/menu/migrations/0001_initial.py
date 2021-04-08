@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=300, verbose_name='Название')),
-                ('is_auth', models.BooleanField(default=False, verbose_name='Для зарегистрированных')),
+                ('status', models.BooleanField(default=False, verbose_name='Для зарегистрированных')),
                 ('published', models.BooleanField(default=True, verbose_name='Отображать?')),
             ],
             options={
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=300, verbose_name='Название пункта меню на латинице')),
                 ('title', models.CharField(max_length=300, verbose_name='Название пункта меню на русском')),
-                ('is_auth', models.BooleanField(default=False, verbose_name='Для зарегистрированных')),
+                ('status', models.BooleanField(default=False, verbose_name='Для зарегистрированных')),
                 ('anchor', models.CharField(max_length=300, verbose_name='Якорь')),
                 ('url', models.URLField(max_length=500, verbose_name='Ссылка на внешний ресурс')),
                 ('object_id', models.PositiveIntegerField(default=1, null=True, verbose_name='id записи')),
